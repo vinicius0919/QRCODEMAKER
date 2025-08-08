@@ -7,6 +7,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 20px;
 }
 .hidden {
   display: none;
@@ -60,7 +61,7 @@ button {
   height: 50px;
 }
 
-img {
+.footer-img {
   width: 50px;
   border-radius: 10px;
   animation: 4s ease-in slide infinite;
@@ -82,6 +83,8 @@ footer {
   margin-top: 20px;
   font-size: 0.9rem;
   color: #666;
+  border-top: 1px solid #9b9b9b;
+  padding-top: 2rem;
 }
 @keyframes slide {
   0% {

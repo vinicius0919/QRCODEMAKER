@@ -1,5 +1,7 @@
 const tipo = document.getElementById("tipo");
 const form = document.getElementById("form");
+const existingImg = document.getElementById("qr-code");
+const downloadBtn = document.getElementById("download");
 
 const image1 = document.getElementsByClassName("image-1")[0];
 const image2 = document.getElementsByClassName("image-2")[0];
@@ -9,6 +11,7 @@ const image3 = document.getElementsByClassName("image-3")[0];
 image1.style.display = "none";
 image2.style.display = "none";
 image3.style.display = "none";
+existingImg.style.display = "none";
 
 let counter = 0;
 
@@ -117,20 +120,13 @@ form.addEventListener("submit", async (event) => {
     const qrCodeURL = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(
       qrCodeData
     )}`;
-    console.log("QR Code:", qrCodeURL);
 
     // remover img do body se existir
-    const existingImg = document.querySelector("img");
-    if (existingImg) {
-      document.body.removeChild(existingImg);
-    }
 
     // Aqui você pode exibir a imagem do QR code em um <img>
-    const img = document.createElement("img");
-    img.src = qrCodeURL;
-    img.alt = "QR Code gerado";
-
-    document.body.append(img);
+    existingImg.src = qrCodeURL;
+    existingImg.alt = "QR Code gerado";
+    existingImg.style.display = "";
   } catch (err) {
     console.error("Erro ao gerar QR Code:", err);
   }
@@ -143,7 +139,6 @@ tipo.addEventListener("change", (event) => {
 
   // Esconde todos os campos
   document.querySelectorAll(".fields").forEach((div) => {
-    console.log(div);
     div.classList.add("hidden");
     div.classList.remove("active");
   });
@@ -155,5 +150,29 @@ tipo.addEventListener("change", (event) => {
   if (camposParaMostrar) {
     camposParaMostrar.classList.remove("hidden");
     camposParaMostrar.classList.add("active");
+  }
+});
+
+downloadBtn.addEventListener("click", async () => {
+  if (existingImg && existingImg.src) {
+    try {
+      const response = await fetch(existingImg.src);
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = "qrcode.png";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Liberar memória do blob
+      URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error("Erro ao baixar QR Code:", error);
+    }
+  } else {
+    alert("Nenhum QR Code foi gerado ainda.");
   }
 });
