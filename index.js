@@ -1,0 +1,159 @@
+const tipo = document.getElementById("tipo");
+const form = document.getElementById("form");
+
+const image1 = document.getElementsByClassName("image-1")[0];
+const image2 = document.getElementsByClassName("image-2")[0];
+const image3 = document.getElementsByClassName("image-3")[0];
+
+// execute display none one time at start
+image1.style.display = "none";
+image2.style.display = "none";
+image3.style.display = "none";
+
+let counter = 0;
+
+setInterval(() => {
+  image1.style.display = counter === 0 ? "" : "none";
+  image2.style.display = counter === 1 ? "" : "none";
+  image3.style.display = counter === 2 ? "" : "none";
+  counter = (counter + 1) % 3;
+}, 4000);
+
+const QRCodeFormats = {
+  texto: (conteudo) => {
+    return `${conteudo}`;
+  },
+
+  url: (link) => {
+    return `${link}`;
+  },
+
+  wifi: ({ ssid, password, encryption = "WPA", hidden = false }) => {
+    return `WIFI:T:${encryption};S:${ssid};P:${password};H:${hidden ? 1 : 0};;`;
+  },
+
+  contato: ({ nome, sobrenome, empresa, telefone, email }) => {
+    return `
+BEGIN:VCARD
+VERSION:3.0
+N:${sobrenome};${nome};;;
+FN:${nome} ${sobrenome}
+ORG:${empresa}
+TEL;TYPE=WORK,VOICE:${telefone}
+EMAIL:${email}
+END:VCARD`.trim();
+  },
+
+  sms: ({ telefone, mensagem }) => {
+    return `SMSTO:${telefone}:${mensagem}`;
+  },
+
+  email: ({ endereco, assunto = "", corpo = "" }) => {
+    return `mailto:${endereco}?subject=${encodeURIComponent(
+      assunto
+    )}&body=${encodeURIComponent(corpo)}`;
+  },
+
+  telefone: (numero) => {
+    return `tel:${numero}`;
+  },
+};
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const formData = new FormData(form);
+  const dados = Object.fromEntries(formData);
+  const tipoSelecionado = dados.tipo;
+
+  let qrCodeData;
+
+  try {
+    switch (tipoSelecionado) {
+      case "texto":
+      case "url":
+      case "telefone":
+        qrCodeData = QRCodeFormats[tipoSelecionado](dados[tipoSelecionado]);
+        break;
+
+      case "wifi":
+        qrCodeData = QRCodeFormats.wifi({
+          ssid: dados.ssid,
+          password: dados.senha,
+          encryption: dados.tipo_criptografia || "WPA",
+          hidden: dados.escondido === "on",
+        });
+        break;
+
+      case "contato":
+        qrCodeData = QRCodeFormats.contato({
+          nome: dados.nome,
+          sobrenome: dados.sobrenome,
+          empresa: dados.empresa,
+          telefone: dados.telefone,
+          email: dados.email,
+        });
+        break;
+
+      case "sms":
+        qrCodeData = QRCodeFormats.sms({
+          telefone: dados.telefone,
+          mensagem: dados.mensagem,
+        });
+        break;
+
+      case "email":
+        qrCodeData = QRCodeFormats.email({
+          endereco: dados.email,
+          assunto: dados.assunto,
+          corpo: dados.corpo,
+        });
+        break;
+
+      default:
+        throw new Error("Tipo de QR Code não reconhecido.");
+    }
+
+    const qrCodeURL = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(
+      qrCodeData
+    )}`;
+    console.log("QR Code:", qrCodeURL);
+
+    // remover img do body se existir
+    const existingImg = document.querySelector("img");
+    if (existingImg) {
+      document.body.removeChild(existingImg);
+    }
+
+    // Aqui você pode exibir a imagem do QR code em um <img>
+    const img = document.createElement("img");
+    img.src = qrCodeURL;
+    img.alt = "QR Code gerado";
+
+    document.body.append(img);
+  } catch (err) {
+    console.error("Erro ao gerar QR Code:", err);
+  }
+});
+
+// select event listener
+
+tipo.addEventListener("change", (event) => {
+  const tipoSelecionado = event.target.value;
+
+  // Esconde todos os campos
+  document.querySelectorAll(".fields").forEach((div) => {
+    console.log(div);
+    div.classList.add("hidden");
+    div.classList.remove("active");
+  });
+
+  // Mostra os campos correspondentes ao tipo selecionado
+  const camposParaMostrar = document.getElementById(
+    `${tipoSelecionado}-fields`
+  );
+  if (camposParaMostrar) {
+    camposParaMostrar.classList.remove("hidden");
+    camposParaMostrar.classList.add("active");
+  }
+});
