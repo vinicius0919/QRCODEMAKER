@@ -3,6 +3,20 @@ const form = document.getElementById("form");
 const existingImg = document.getElementById("qr-code");
 const downloadBtn = document.getElementById("download");
 
+const selectTypeWifi = document.getElementById("tipo_criptografia");
+const inputSenha = document.getElementById("senha");
+
+selectTypeWifi.addEventListener("change", (event) => {
+  const selectedValue = event.target.value;
+
+  if (selectedValue === "unencrypted") {
+    inputSenha.classList.add("hidden");
+    inputSenha.value = "";
+  } else {
+    inputSenha.classList.remove("hidden");
+  }
+});
+
 const image1 = document.getElementsByClassName("image-1")[0];
 const image2 = document.getElementsByClassName("image-2")[0];
 const image3 = document.getElementsByClassName("image-3")[0];

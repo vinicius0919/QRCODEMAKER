@@ -25,9 +25,13 @@
         </div>
 
     <div id="wifi-fields" class="hidden fields">
-        <input type="text" name="ssid" placeholder="SSID">
-        <input type="text" name="senha" placeholder="Senha">
-        <input type="text" name="tipo_criptografia" placeholder="Tipo de Criptografia">
+        <input type="text" name="ssid" placeholder="SSID (Nome da Rede)">
+        <select name="tipo_criptografia" id="tipo_criptografia">
+            <option value="WPA">WPA</option>
+            <option value="WEP">WEP</option>
+            <option value="unencrypted">Aberto</option>
+        </select>
+        <input type="text" name="senha" id="senha" placeholder="Senha">
     </div>
 
     <div id="url-fields" class="hidden fields">
