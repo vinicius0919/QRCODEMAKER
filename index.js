@@ -6,6 +6,19 @@ const downloadBtn = document.getElementById("download");
 const selectTypeWifi = document.getElementById("tipo_criptografia");
 const inputSenha = document.getElementById("senha");
 
+const inputs = document.querySelectorAll("input");
+// verifica se o input tem valor
+// se tiver, adiciona a classe 'filled' para manter o placeholder flutuando
+inputs.forEach((input) => {
+  input.addEventListener("input", () => {
+    if (input.value) {
+      input.classList.add("filled");
+    } else {
+      input.classList.remove("filled");
+    }
+  });
+});
+
 selectTypeWifi.addEventListener("change", (event) => {
   const selectedValue = event.target.value;
 

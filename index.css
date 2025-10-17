@@ -28,6 +28,9 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+input::placeholder {
+  color: transparent;
+}
 
 select {
   width: 100%;
@@ -74,9 +77,9 @@ a {
   padding: 0.5rem;
   border: 1px solid #007bff;
   border-radius: 25px;
-  &:hover {
-    text-decoration: underline;
-  }
+}
+a:hover {
+  text-decoration: underline;
 }
 footer {
   text-align: center;
@@ -105,6 +108,17 @@ input:focus {
 }
 
 input:focus ~ #floating-placeholder {
+  top: -10px;
+  left: 10px;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #000000;
+  font-weight: 500;
+  text-shadow: 2px 2px 2px #f4f4f4;
+  padding: 0 5px;
+}
+/* When input has text, keep the placeholder floated */
+input:not(:placeholder-shown) ~ #floating-placeholder {
   top: -10px;
   left: 10px;
   font-size: 1rem;
