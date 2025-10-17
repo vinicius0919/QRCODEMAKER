@@ -1,80 +1,136 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./index.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./index.css" />
     <title>QRCode Maker</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Gerador de QR Code</h1>
-    <form id="form" >
-    <label for="tipo">Escolha um tipo de QR Code</label>
-    <select name="tipo" id="tipo">
+    <form id="form">
+      <label for="tipo">Escolha um tipo de QR Code</label>
+      <select name="tipo" id="tipo">
         <option value="texto">Texto</option>
-        <option value="url">URL</option>
         <option value="wifi">Wi-Fi</option>
+        <option value="url">URL</option>
         <option value="contato">Contato</option>
         <option value="sms">SMS</option>
         <option value="email">Email</option>
         <option value="telefone">Telefone</option>
-    </select>
-    <label for="tipo">Preencha os campos abaixo</label>
-    <div id="texto-fields" class="fields">
-        <input type="text" name="texto" placeholder="Texto">
+      </select>
+      <label for="tipo">Preencha os campos abaixo</label>
+      <div id="texto-fields" class="fields">
+        <div class="input-container">
+          <input type="text" name="texto" />
+          <span id="floating-placeholder">Texto</span>
         </div>
+      </div>
 
-    <div id="wifi-fields" class="hidden fields">
-        <input type="text" name="ssid" placeholder="SSID (Nome da Rede)">
+      <div id="wifi-fields" class="hidden fields">
+        <div class="input-container">
+          <input type="text" name="ssid" />
+          <span id="floating-placeholder">SSID (Nome da Rede)</span>
+        </div>
         <select name="tipo_criptografia" id="tipo_criptografia">
-            <option value="WPA">WPA</option>
-            <option value="WEP">WEP</option>
-            <option value="unencrypted">Aberto</option>
+          <option value="WPA">WPA</option>
+          <option value="WEP">WEP</option>
+          <option value="unencrypted">Aberto</option>
         </select>
-        <input type="text" name="senha" id="senha" placeholder="Senha">
-    </div>
-
-    <div id="url-fields" class="hidden fields">
-        <input type="text" name="url" placeholder="URL">
-    </div>
-
-    <div id="contato-fields" class="hidden fields">
-        <input type="text" name="nome" placeholder="Nome">
-        <input type="text" name="sobrenome" placeholder="Sobrenome">
-        <input type="text" name="empresa" placeholder="Empresa">
-        <input type="text" name="telefone" placeholder="Telefone">
-        <input type="email" name="email" placeholder="Email">
-    </div>
-
-    <div id="sms-fields" class="hidden fields">
-        <input type="text" name="telefone" placeholder="Telefone">
-        <input type="text" name="mensagem" placeholder="Mensagem">
-    </div>
-
-    <div id="email-fields" class="hidden fields">
-        <input type="email" name="email" placeholder="Email">
-        <input type="text" name="assunto" placeholder="Assunto">
-        <textarea name="corpo" placeholder="Corpo do Email"></textarea>
-    </div>
-
-    <div id="telefone-fields" class="hidden fields" >
-        <input type="text" name="telefone" placeholder="Telefone">
-    </div>
-</div>
-<button id="submit" type="submit">Gerar QR Code</button>
-</form>
-<img class="qr-code" id="qr-code" src="" alt="QRCode">
-<button id="download">Baixar QR Code</button>
-<footer>
-        <p>Desenvolvido por <a href="https://github.com/vinicius0919">Vinícius Lima</a></p>
-        <div class="carroussel">
-            <img class="image-1 footer-img" src="./assets/java-script.png" alt="Imagem 1" />
-            <img class="image-2 footer-img" src="./assets/html.png" alt="Imagem 2" />
-            <img class="image-3 footer-img" src="./assets/css-3.png" alt="Imagem 3" />
+        <div class="input-container">
+          <input type="text" name="senha" id="senha" />
+          <span id="floating-placeholder">Senha</span>
         </div>
+      </div>
 
-    <p>&copy; 2025 QRCode Maker. Todos os direitos reservados.</p>
-</footer>
-<script src="./index.js"></script>
-</body>
+      <div id="url-fields" class="hidden fields">
+        <div class="input-container">
+          <input type="text" name="url" />
+          <span id="floating-placeholder">URL</span>
+        </div>
+      </div>
+
+      <div id="contato-fields" class="hidden fields">
+        <div class="input-container">
+          <input type="text" name="nome" />
+          <span id="floating-placeholder">Nome</span>
+        </div>
+        <div class="input-container">
+          <input type="text" name="sobrenome" />
+          <span id="floating-placeholder">Sobrenome</span>
+        </div>
+        <div class="input-container">
+          <input type="text" name="empresa" />
+          <span id="floating-placeholder">Empresa</span>
+        </div>
+        <div class="input-container">
+          <input type="text" name="telefone" />
+          <span id="floating-placeholder">Telefone</span>
+        </div>
+        <div class="input-container">
+          <input type="email" name="email" />
+          <span id="floating-placeholder">Email</span>
+        </div>
+      </div>
+
+      <div id="sms-fields" class="hidden fields">
+        <div class="input-container">
+          <input type="text" name="telefone" />
+          <span id="floating-placeholder">Telefone</span>
+        </div>
+        <div class="input-container">
+          <input type="text" name="mensagem" />
+          <span id="floating-placeholder">Mensagem</span>
+        </div>
+      </div>
+
+      <div id="email-fields" class="hidden fields">
+        <div class="input-container">
+          <input type="email" name="email" />
+          <span id="floating-placeholder">Email</span>
+        </div>
+        <div class="input-container">
+          <input type="text" name="assunto" />
+          <span id="floating-placeholder">Assunto</span>
+        </div>
+        <textarea name="corpo" placeholder="Corpo do Email"></textarea>
+      </div>
+
+      <div id="telefone-fields" class="hidden fields">
+        <div class="input-container">
+          <input type="text" name="telefone" />
+          <span id="floating-placeholder">Telefone</span>
+        </div>
+      </div>
+      <button id="submit" type="submit">Gerar QR Code</button>
+    </form>
+    <img class="qr-code" id="qr-code" src="" alt="QRCode" />
+    <button id="download">Baixar QR Code</button>
+    <footer>
+      <p>
+        Desenvolvido por
+        <a href="https://github.com/vinicius0919">Vinícius Lima</a>
+      </p>
+      <div class="carroussel">
+        <img
+          class="image-1 footer-img"
+          src="./assets/java-script.png"
+          alt="Imagem 1"
+        />
+        <img
+          class="image-2 footer-img"
+          src="./assets/html.png"
+          alt="Imagem 2"
+        />
+        <img
+          class="image-3 footer-img"
+          src="./assets/css-3.png"
+          alt="Imagem 3"
+        />
+      </div>
+
+      <p>&copy; 2025 QRCode Maker. Todos os direitos reservados.</p>
+    </footer>
+    <script src="./index.js"></script>
+  </body>
 </html>
