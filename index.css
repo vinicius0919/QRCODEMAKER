@@ -101,6 +101,7 @@ footer {
   top: 10px;
   transition: 0.2s ease all;
   color: #999;
+  background-color: #ffffff;
 }
 input:focus {
   outline: none;
