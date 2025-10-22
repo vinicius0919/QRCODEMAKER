@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+Sitemap: https://qrcodemaker-90323v5h2-vinicius-limas-projects-266dca5b.vercel.app/sitemap.xml

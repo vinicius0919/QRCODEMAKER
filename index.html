@@ -3,15 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Gerador de QR Code online gratuito. Crie QR codes para texto, Wi-Fi, URL, contatos, SMS, email e telefone de forma rápida e fácil." />
+    <meta name="keywords" content="qr code, gerador qr code, qr code gratuito, qr code online, qr code maker" />
+    <meta name="author" content="Vinícius Lima" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://qrcodemaker-90323v5h2-vinicius-limas-projects-266dca5b.vercel.app/" />
     <link rel="stylesheet" href="./index.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4331459371750222"
      crossorigin="anonymous"></script>
      <meta name="google-adsense-account" content="ca-pub-4331459371750222">
-    <title>QRCode Maker</title>
+    <title>QRCode Maker - Gerador de QR Code Online Gratuito</title>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "QRCode Maker",
+      "description": "Gerador de QR Code online gratuito para criar códigos QR personalizados",
+      "url": "https://qrcodemaker-90323v5h2-vinicius-limas-projects-266dca5b.vercel.app/",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Vinícius Lima"
+      }
+    }
+    </script>
   </head>
   <body>
-    <h1>Gerador de QR Code</h1>
-    <form id="form">
+    <header>
+      <h1>Gerador de QR Code Online</h1>
+      <p>Crie QR codes personalizados de forma gratuita e rápida para diferentes tipos de conteúdo.</p>
+    </header>
+    
+    <main>
+      <section class="qr-generator">
+        <h2>Criar Seu QR Code</h2>
+        <form id="form">
       <label for="tipo">Escolha um tipo de QR Code</label>
       <select name="tipo" id="tipo">
         <option value="texto">Texto</option>
@@ -105,10 +138,33 @@
           <span id="floating-placeholder">Telefone</span>
         </div>
       </div>
-      <button id="submit" type="submit">Gerar QR Code</button>
-    </form>
-    <img class="qr-code" id="qr-code" src="" alt="QRCode" />
-    <button id="download">Baixar QR Code</button>
+          <button id="submit" type="submit">Gerar QR Code</button>
+        </form>
+        
+        <div class="qr-result">
+          <img class="qr-code" id="qr-code" src="" alt="QRCode gerado" />
+          <button id="download">Baixar QR Code</button>
+        </div>
+      </section>
+      
+      <section class="features">
+        <h2>Recursos do Gerador de QR Code</h2>
+        <div class="feature-list">
+          <div class="feature">
+            <h3>Múltiplos Tipos</h3>
+            <p>Suporte para texto, Wi-Fi, URLs, contatos, SMS, email e telefone.</p>
+          </div>
+          <div class="feature">
+            <h3>Gratuito</h3>
+            <p>Use nosso gerador de QR code completamente gratuito, sem limitações.</p>
+          </div>
+          <div class="feature">
+            <h3>Fácil de Usar</h3>
+            <p>Interface simples e intuitiva para criar QR codes rapidamente.</p>
+          </div>
+        </div>
+      </section>
+    </main>
     <footer>
       <p>
         Desenvolvido por
