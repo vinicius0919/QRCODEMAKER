@@ -1,6 +1,7 @@
 const tipo = document.getElementById("tipo");
 const form = document.getElementById("form");
-const existingImg = document.getElementById("qr-code");
+// const existingImg = document.getElementById("qr-code");
+const qrCodeContainer = document.getElementById("qr-code-container");
 const downloadBtn = document.getElementById("download");
 
 const selectTypeWifi = document.getElementById("tipo_criptografia");
@@ -13,6 +14,11 @@ inputs.forEach((input) => {
   input.addEventListener("input", () => {
     if (input.value) {
       input.classList.add("filled");
+      const existingImg = qrCodeContainer.querySelector("img");
+      if (existingImg) {
+        qrCodeContainer.removeChild(existingImg);
+        downloadBtn.disabled = true;
+      }
     } else {
       input.classList.remove("filled");
     }
@@ -43,7 +49,6 @@ const image3 = document.getElementsByClassName("image-3")[0];
 image1.style.display = "none";
 image2.style.display = "none";
 image3.style.display = "none";
-existingImg.style.display = "none";
 
 let counter = 0;
 
@@ -153,12 +158,12 @@ form.addEventListener("submit", async (event) => {
       qrCodeData
     )}`;
 
-    // remover img do body se existir
-
     // Aqui você pode exibir a imagem do QR code em um <img>
-    existingImg.src = qrCodeURL;
-    existingImg.alt = "QR Code gerado";
-    existingImg.style.display = "";
+    const qrCodeImg = document.createElement("img");
+    qrCodeImg.src = qrCodeURL;
+    qrCodeImg.alt = "QR Code gerado";
+    qrCodeContainer.appendChild(qrCodeImg);
+    downloadBtn.disabled = false;
   } catch (err) {
     console.error("Erro ao gerar QR Code:", err);
   }
@@ -196,6 +201,7 @@ tipo.addEventListener("change", (event) => {
 });
 
 downloadBtn.addEventListener("click", async () => {
+  const existingImg = qrCodeContainer.querySelector("img");
   if (existingImg && existingImg.src) {
     try {
       const response = await fetch(existingImg.src);
@@ -215,6 +221,6 @@ downloadBtn.addEventListener("click", async () => {
       console.error("Erro ao baixar QR Code:", error);
     }
   } else {
-    alert("Nenhum QR Code foi gerado ainda.");
+    downloadBtn.disabled = true;
   }
 });
