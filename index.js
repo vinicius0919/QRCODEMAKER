@@ -23,9 +23,14 @@ selectTypeWifi.addEventListener("change", (event) => {
   const selectedValue = event.target.value;
 
   if (selectedValue === "unencrypted") {
+    // hidden input and span
     inputSenha.classList.add("hidden");
+    span = document.querySelector('span[for="senha"]');
+    span.classList.add("hidden");
     inputSenha.value = "";
   } else {
+    span = document.querySelector('span[for="senha"]');
+    span.classList.remove("hidden");
     inputSenha.classList.remove("hidden");
   }
 });
@@ -168,6 +173,11 @@ tipo.addEventListener("change", (event) => {
   document.querySelectorAll(".fields").forEach((div) => {
     div.classList.add("hidden");
     div.classList.remove("active");
+    // remove required from all inputs inside the hidden div
+    const inputsEscondidos = div.querySelectorAll("input");
+    inputsEscondidos.forEach((input) => {
+      input.required = false;
+    });
   });
 
   // Mostra os campos correspondentes ao tipo selecionado
@@ -177,6 +187,11 @@ tipo.addEventListener("change", (event) => {
   if (camposParaMostrar) {
     camposParaMostrar.classList.remove("hidden");
     camposParaMostrar.classList.add("active");
+    // add required to all inputs inside the active div
+    const inputsAtivos = camposParaMostrar.querySelectorAll("input");
+    inputsAtivos.forEach((input) => {
+      input.required = true;
+    });
   }
 });
 
